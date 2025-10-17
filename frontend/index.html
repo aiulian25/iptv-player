@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Player</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Left Sidebar - Channel List -->
+        <aside class="channel-sidebar">
+            <div class="sidebar-header">
+                <div class="tabs">
+                    <button class="tab active" data-tab="channels">ALL CHANNELS</button>
+                    <button class="tab" data-tab="groups">GROUPS</button>
+                    <button class="tab" data-tab="favorites">FAVORITES</button>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <input type="text" id="channel-search" class="channel-search" placeholder="Search...">
+                <button class="add-playlist-btn hidden" id="add-playlist-btn" title="Add Playlist">+</button>
+                <button class="add-playlist-btn" id="login-link-btn" title="Login">🔐</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="channels-tab" class="tab-pane active">
+                    <div id="channel-list" class="channel-list">
+                        <div class="empty-state">No channels loaded. Login to add playlists.</div>
+                    </div>
+                </div>
+                <div id="groups-tab" class="tab-pane">
+                    <div id="group-list" class="group-list">
+                        <div class="empty-state">No groups available</div>
+                    </div>
+                </div>
+                <div id="favorites-tab" class="tab-pane">
+                    <div id="favorites-list" class="channel-list">
+                        <div class="empty-state">No favorites yet</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center - Video Player -->
+        <main class="player-area">
+            <div class="player-header">
+                <div class="channel-info">
+                    <h2 id="current-channel-name">Select a channel</h2>
+                    <button class="favorite-star" id="favorite-star" title="Add to favorites" style="display: none;">☆</button>
+                </div>
+                
+                <div class="player-actions">
+                    <button class="player-tab" id="login-btn">🔐 LOGIN</button>
+                    <button class="player-tab hidden" id="settings-btn">⚙️ SETTINGS</button>
+                    <button class="player-tab hidden" id="record-btn">⏺ RECORD</button>
+                    <button class="player-tab hidden" id="recordings-btn">📁 RECORDINGS</button>
+                    <button class="player-tab" id="refresh-btn">🔄 REFRESH</button>
+                    <button class="player-tab hidden" id="logout-btn">🚪 LOGOUT</button>
+                </div>
+            </div>
+
+            <div class="video-wrapper">
+                <video id="video-player" controls></video>
+                <div class="video-overlay" id="video-overlay">
+                    <div class="overlay-content">
+                        <div class="overlay-icon">📺</div>
+                        <div class="overlay-text">Select a channel to start playing</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="player-controls">
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span class="live-text">LIVE</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Playlist Modal -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Playlist</h2>
+                <button id="modal-close" class="modal-close">×</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Context Menu for Right Click -->
+    <div id="context-menu" class="context-menu hidden">
+        <div class="context-menu-item" id="context-favorite">⭐ Add to Favorites</div>
+        <div class="context-menu-item" id="context-remove-favorite">☆ Remove from Favorites</div>
+    </div>
+
+    <!-- Load auth first, then app -->
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/epg-viewer.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+async submitPlaylist(form) {
+    const formData = new FormData(form);
+    const sourceType = formData.get('source_type');
+    
+    const data = {
+        name: formData.get('name'),
+        playlist_type: formData.get('playlist_type'),
+        source_type: sourceType,
+        auto_update: formData.get('auto_update') === 'on',
+        user_agent: formData.get('user_agent') || null,
+        xtream_username: formData.get('xtream_username') || null,
+        xtream_password: formData.get('xtream_password') || null,
+        stalker_mac: formData.get('stalker_mac') || null
+    };
+    
+    try {
+        // Step 1: If file upload, first upload the file to get the path
+        if (sourceType === 'file') {
+            const fileInput = form.querySelector('input[name="file"]');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+            
+            const uploadFormData = new FormData();
+            uploadFormData.append('file', file);
+            
+            console.log('Uploading file...');
+            const uploadResponse = await fetch(`${API_BASE}/playlists/upload`, {
+                method: 'POST',
+                body: uploadFormData
+            });
+            
+            if (!uploadResponse.ok) {
+                const error = await uploadResponse.json();
+                alert(error.error || 'File upload failed');
+                return;
+            }
+            
+            const uploadResult = await uploadResponse.json();
+            data.file_path = uploadResult.filepath;
+            console.log('File uploaded to:', uploadResult.filepath);
+            
+        } else {
+            // URL source
+            data.source_url = formData.get('source_url');
+        }
+        
+        // Step 2: Create the playlist with the file path or URL
+        console.log('Creating playlist...');
+        const response = await fetch(`${API_BASE}/playlists`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            console.log('Playlist created successfully:', result);
+            this.hideModal();
+            
+            // Show success message
+            alert(`Playlist "${result.name}" added with ${result.channel_count} channels!`);
+            
+            // Reload playlists to get the new one
+            await this.loadPlaylists();
+            
+            // Auto-select the newly created playlist after a short delay
+            setTimeout(() => {
+                const newPlaylistElement = document.querySelector(`[data-playlist-id="${result.id}"]`);
+                if (newPlaylistElement) {
+                    console.log(`Auto-selecting new playlist ID ${result.id}`);
+                    this.selectPlaylist(result.id, newPlaylistElement);
+                } else {
+                    console.error(`Could not find playlist element with ID ${result.id}`);
+                }
+            }, 800);
+            
+        } else {
+            console.error('Failed to create playlist:', result);
+            alert(result.error || 'Failed to add playlist');
+        }
+    } catch (error) {
+        console.error('Error adding playlist:', error);
+        alert('Error adding playlist: ' + error.message);
+    }
+}

@@ -1,0 +1,33 @@
+.light-theme {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+    --hover-color: #f5f5f5;
+    --primary-color: #2196F3;
+    --primary-hover: #1976D2;
+    --secondary-color: #FF9800;
+    --secondary-hover: #F57C00;
+    --input-bg: #ffffff;
+}
+
+.dark-theme {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --border-color: #333333;
+    --hover-color: #2a2a2a;
+    --primary-color: #2196F3;
+    --primary-hover: #1976D2;
+    --secondary-color: #FF9800;
+    --secondary-hover: #F57C00;
+    --input-bg: #2a2a2a;
+}
+
+.light-theme {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.dark-theme {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
