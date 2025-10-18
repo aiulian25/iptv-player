@@ -2,7 +2,6 @@
 
 A modern, feature-rich web-based IPTV player with user authentication, playlist management, and recording capabilities.
 
-![IPTV Player](screenshots/iptv-landing-page.jpeg)
 
 ## Features
 
@@ -48,18 +47,21 @@ A modern, feature-rich web-based IPTV player with user authentication, playlist 
 - User management (admin only)
 - Theme customization
 
-##  Screenshots
+## Screenshots
 
-### Login Page
-![Login](screenshots/iptv-login-page.jpeg)
+<p align="center">
+  <img src="screenshots/login.png" alt="Login Page" width="45%" />
+  <img src="screenshots/player.png" alt="Channel Browser" width="45%" />
+</p>
 
-### Main Player Interface
-![Player](screenshots/iptv-landing-page.jpeg)
+<p align="center">
+  <img src="screenshots/settings.png" alt="Settings Page" width="45%" />
 
-### Settings
-![Settings](screenshots/iptv-settings-page.jpeg)
 
 ##  Quick Start
+
+-For new machines, use the pre-built image from Docker Hub: image: aiulian25/iptv-player:latest
+
 
 ### Prerequisites
 - Docker
