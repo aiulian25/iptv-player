@@ -47,17 +47,6 @@ A modern, feature-rich web-based IPTV player with user authentication, playlist 
 - User management (admin only)
 - Theme customization
 
-## Screenshots
-
-<p align="center">
-  <img src="screenshots/login.png" alt="Login Page" width="45%" />
-  <img src="screenshots/player.png" alt="Channel Browser" width="45%" />
-</p>
-
-<p align="center">
-  <img src="screenshots/settings.png" alt="Settings Page" width="45%" />
-
-
 ##  Quick Start
 
 -For new machines, use the pre-built image from Docker Hub: image: aiulian25/iptv-player:latest
