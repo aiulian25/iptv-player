@@ -3,10 +3,9 @@
 A modern, feature-rich web-based IPTV player with user authentication, playlist management, and recording capabilities.
 
 ## Screenshots
-<img width="1909" height="935" alt="iptv settings page" src="https://github.com/user-attachments/assets/6b1ff578-7e69-4aeb-b100-17fa1a8b0149" />
 <img width="1909" height="935" alt="iptv login page" src="https://github.com/user-attachments/assets/7be983f1-0360-48f1-a853-230ab10759b4" />
 <img width="1909" height="935" alt="iptv landing page" src="https://github.com/user-attachments/assets/d03757c2-7978-492c-9452-d9308bfe934e" />
-
+<img width="1909" height="935" alt="iptv settings page" src="https://github.com/user-attachments/assets/6b1ff578-7e69-4aeb-b100-17fa1a8b0149" />
 
 ## Features
 
