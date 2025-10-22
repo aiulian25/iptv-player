@@ -1,12 +1,10 @@
-version: "3.8"
-
 services:
   iptv-player:
-    build: .
+    image: aiulian25/iptv-player:latest
     container_name: iptv-player
     environment:
       - FLASK_ENV=production
-      - SECRET_KEY=${SECRET_KEY:-change-me}
+      - SECRET_KEY=${SECRET_KEY}
       - DATABASE_PATH=/app/data/database.db
       - PORT=5000
       - PYTHONUNBUFFERED=1
@@ -27,4 +25,3 @@ services:
     depends_on:
       - iptv-player
     restart: unless-stopped
-
