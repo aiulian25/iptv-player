@@ -63,5 +63,5 @@ A modern, feature-rich web-based IPTV player with user authentication, playlist 
 
 ### Installation
 
-1. **Clone the repository:**
 # iptv-player
+- https://hub.docker.com/repository/docker/aiulian25/iptv-player
