@@ -225,11 +225,22 @@ def update_playlist_channels(playlist):
         # Parse channels
         parsed_channels = parse_m3u(content)
         
+        # Store favorite status before deleting channels
+        # Use stream_url as the primary key for matching channels
+        old_channels = session.query(Channel).filter_by(playlist_id=playlist.id).all()
+        favorites_map = {}
+        for old_ch in old_channels:
+            if old_ch.is_favorite and old_ch.stream_url:
+                favorites_map[old_ch.stream_url] = True
+        
         # Delete old channels
         session.query(Channel).filter_by(playlist_id=playlist.id).delete()
         
-        # Add new channels
+        # Add new channels, restoring favorite status
         for idx, ch_data in enumerate(parsed_channels, start=1):
+            stream_url = ch_data.get('stream_url', '')
+            is_favorite = favorites_map.get(stream_url, False)
+            
             channel = Channel(
                 playlist_id=playlist.id,
                 name=ch_data.get('name', 'Unknown'),
@@ -237,8 +248,9 @@ def update_playlist_channels(playlist):
                 tvg_id=ch_data.get('tvg_id'),
                 tvg_name=ch_data.get('tvg_name'),
                 tvg_logo=ch_data.get('tvg_logo'),
-                stream_url=ch_data.get('stream_url', ''),
-                channel_number=idx
+                stream_url=stream_url,
+                channel_number=idx,
+                is_favorite=is_favorite
             )
             session.add(channel)
         
@@ -248,7 +260,8 @@ def update_playlist_channels(playlist):
         
         session.commit()
         
-        print(f"Updated playlist '{playlist.name}' with {len(parsed_channels)} channels")
+        favorites_count = sum(1 for ch in parsed_channels if favorites_map.get(ch.get('stream_url', ''), False))
+        print(f"Updated playlist '{playlist.name}' with {len(parsed_channels)} channels ({favorites_count} favorites preserved)")
         
     except Exception as e:
         session.rollback()
